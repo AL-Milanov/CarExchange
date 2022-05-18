@@ -1,0 +1,42 @@
+﻿using CarExchange.Core.Models;
+using CarExchange.Infrastructure.Data.Models;
+using CarExchange.Infrastructure.Data.Settings;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+
+namespace CarExchange.Core.Services
+{
+    public class ImageService
+    {
+
+        private readonly IMongoCollection<Image> _images;
+
+        public ImageService(IOptions<MongoDbSettings> options)
+        {
+            var client = new MongoClient(options.Value.ConnectionString);
+
+            _images = client.GetDatabase(options.Value.DatabaseName)
+                .GetCollection<Image>(options.Value.CollectionName);
+        }
+
+        public async Task<string> Create(ImageVM model)
+        {
+            var image = new Image
+            {
+                Images = model.Images,
+            };
+
+            await _images.InsertOneAsync(image);
+
+            return image.Id;
+        }
+        
+        public async Task<ImageVM> Get(string id)
+        {
+            var image = await _images.Find(i => i.Id == id)
+                .FirstOrDefaultAsync();
+
+            return new ImageVM { Images = image.Images };
+        }
+    }
+}
