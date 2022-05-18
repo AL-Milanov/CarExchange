@@ -38,5 +38,10 @@ namespace CarExchange.Core.Services
 
             return new ImageVM { Images = image.Images };
         }
+
+        public async Task Remove(string id)
+        {
+            await _images.DeleteOneAsync(i => i.Id == id);
+        }
     }
 }
