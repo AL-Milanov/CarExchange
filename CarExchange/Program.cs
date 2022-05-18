@@ -5,7 +5,6 @@ using CarExchange.Infrastructure.Data.Common.ApplicationRepository;
 using CarExchange.Infrastructure.Data.Common.ApplicationRepository.Contracts;
 using CarExchange.Infrastructure.Data.Settings;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +21,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 builder.Services
     .AddScoped<IApplicationRepository, ApplicationRepository>()
-    .AddScoped<IImageService, ImageService>();
+    .AddScoped<IImageService, ImageService>()
+    .AddScoped<ICarService, CarService>();
 
 builder.Services.AddControllersWithViews();
 
