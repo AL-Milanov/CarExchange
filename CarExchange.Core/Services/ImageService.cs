@@ -40,6 +40,14 @@ namespace CarExchange.Core.Services
             return new ImageVM { Images = image.Images };
         }
 
+        public async Task<byte[]> GetFirst(string id)
+        {
+            var image = await _images.Find(i => i.Id == id)
+                .FirstOrDefaultAsync();
+
+            return image == null ? null : image.Images[0];
+        }
+
         public async Task Remove(string id)
         {
             await _images.DeleteOneAsync(i => i.Id == id);

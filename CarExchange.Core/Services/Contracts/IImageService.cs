@@ -9,5 +9,7 @@ namespace CarExchange.Core.Services.Contracts
         Task<ImageVM> Get(string id);
 
         Task Remove(string id);
+
+        Task<byte[]> GetFirst(string id);
     }
 }
