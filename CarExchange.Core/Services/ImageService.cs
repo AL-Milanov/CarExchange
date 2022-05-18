@@ -1,4 +1,5 @@
 ﻿using CarExchange.Core.Models;
+using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data.Models;
 using CarExchange.Infrastructure.Data.Settings;
 using Microsoft.Extensions.Options;
@@ -6,7 +7,7 @@ using MongoDB.Driver;
 
 namespace CarExchange.Core.Services
 {
-    public class ImageService
+    public class ImageService : IImageService
     {
 
         private readonly IMongoCollection<Image> _images;
