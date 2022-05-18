@@ -1,4 +1,7 @@
+using CarExchange.Core.Services;
+using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data;
+using CarExchange.Infrastructure.Data.Common.ApplicationRepository;
 using CarExchange.Infrastructure.Data.Common.ApplicationRepository.Contracts;
 using CarExchange.Infrastructure.Data.Settings;
 using Microsoft.AspNetCore.Identity;
@@ -7,18 +10,19 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("Npg");
 
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Mongo"));
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+builder.Services.AddDbContexts(builder.Configuration);
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<IApplicationRepository, IApplicationRepository>();
+builder.Services
+    .AddScoped<IApplicationRepository, ApplicationRepository>()
+    .AddScoped<IImageService, ImageService>();
 
 builder.Services.AddControllersWithViews();
 
