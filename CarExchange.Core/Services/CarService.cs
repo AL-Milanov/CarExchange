@@ -1,18 +1,16 @@
-﻿using CarExchange.Core.Models;
+﻿using CarExchange.Core.Common;
+using CarExchange.Core.Models;
 using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data.Common.ApplicationRepository.Contracts;
 using CarExchange.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarExchange.Core.Services
 {
     public class CarService : ICarService
     {
+        private const string errorMessage = "Cannot update entity.";
+
         private const int _pageResults = 10;
 
         private readonly IApplicationRepository _repo;
@@ -25,6 +23,28 @@ namespace CarExchange.Core.Services
         {
             _repo = repo;
             _imageService = imageService;
+        }
+
+
+        public async Task Delete(string id)
+        {
+            var car = await _repo.GetAll<Car>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            Guard.AgainstNull(car, nameof(car));
+            Guard.AgainstNull(car.ImageId, nameof(car.ImageId));
+
+            try
+            {
+                await _imageService.Remove(car.ImageId);
+                _repo.Delete(car);
+
+                await _repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new OperationCanceledException(errorMessage);
+            }
         }
 
         public async Task<CarResponse> GetAll(int page)
@@ -61,6 +81,42 @@ namespace CarExchange.Core.Services
             };
 
             return response;
+        }
+
+        public async Task BookCar(string id)
+        {
+            var car = await _repo.GetAll<Car>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            Guard.AgainstNull(car, nameof(car));
+
+            try
+            {
+                car.IsBooked = true;
+                await _repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new OperationCanceledException(errorMessage);
+            }
+        }
+
+        public async Task ShowCar(string id)
+        {
+            var car = await _repo.GetAll<Car>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            Guard.AgainstNull(car, nameof(car));
+
+            try
+            {
+                car.IsBooked = false;
+                await _repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new OperationCanceledException(errorMessage);
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CarExchange.Infrastructure.Data.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarExchange.Infrastructure.Data.Models
 {
@@ -8,7 +7,7 @@ namespace CarExchange.Infrastructure.Data.Models
     {
         [Key]
         [StringLength(36)]
-        public string Id = Guid.NewGuid().ToString();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         public Manufacturer Manufacturer { get; set; }
@@ -45,7 +44,7 @@ namespace CarExchange.Infrastructure.Data.Models
         public string? Description { get; set; }
 
         [Required]
-        public bool IsBooked { get; set; }
+        public bool IsBooked { get; set; } = false;
 
         public ICollection<Feature>? Features { get; set; }
 
