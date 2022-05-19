@@ -2,7 +2,7 @@
 {
     public class ImageVM
     {
-        public List<byte[]> Images { get; set; }
+        public ICollection<byte[]> Images { get; set; }
 
         public ImageVM()
         {

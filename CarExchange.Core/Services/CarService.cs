@@ -2,6 +2,7 @@
 using CarExchange.Core.Models;
 using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data.Common.ApplicationRepository.Contracts;
+using CarExchange.Infrastructure.Data.Enums;
 using CarExchange.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -111,6 +112,71 @@ namespace CarExchange.Core.Services
             try
             {
                 car.IsBooked = false;
+                await _repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new OperationCanceledException(errorMessage);
+            }
+        }
+
+        public async Task Add(AddCar model)
+        {
+            var manufacturerExists = Enum.TryParse(model.Manufacturer, out Manufacturer manufacturer);
+
+            var colorExists = Enum.TryParse(model.Color, out Color color);
+
+            var transmissionExists = Enum.TryParse(model.Transmission, out Transmission transmission);
+
+            var fuelExists = Enum.TryParse(model.Fuel, out Fuel fuel);
+
+            var bodyTypeExists = Enum.TryParse(model.Bodystyle, out BodyType bodyStyle);
+
+            if (!manufacturerExists || !colorExists || !transmissionExists || !fuelExists || !bodyTypeExists)
+            {
+                throw new ArgumentException("Problem occured, try again later.");
+            }
+
+            var imageId = string.Empty;
+
+            try
+            {
+                imageId = await _imageService.Create(new ImageVM { Images = model.Images });
+
+            }
+            catch (Exception)
+            {
+                throw new OperationCanceledException(errorMessage);
+            }
+
+            var featuresNames = model?.Features?.Select(x => x.Text).ToList();
+
+            var features = await _repo.GetAll<Feature>()
+                .Where(f => featuresNames.Contains(f.Name))
+                .ToListAsync();
+
+            var car = new Car
+            {
+                Bodystyle = bodyStyle,
+                Color = color,
+                Features = features,
+                Description = model?.Description,
+                Engine = model?.Engine,
+                Fuel = fuel,
+                Gears = model.Gears,
+                HorsePower = model.HorsePower,
+                ImageId = imageId,
+                Manufacturer = manufacturer,
+                Mileage = model.Mileage,
+                Model = model.Model,
+                Seats = model.Seats,
+                Price = model.Price,
+                Transmission = transmission
+            };
+
+            try
+            {
+                await _repo.AddAsync(car);
                 await _repo.SaveChangesAsync();
             }
             catch (Exception)

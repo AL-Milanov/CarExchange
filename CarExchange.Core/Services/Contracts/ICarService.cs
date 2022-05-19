@@ -6,6 +6,8 @@ namespace CarExchange.Core.Services.Contracts
     {
         Task<CarResponse> GetAll(int page);
 
+        Task Add(AddCar model);
+
         Task Delete(string id);
 
         Task BookCar(string id);
