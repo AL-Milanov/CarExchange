@@ -22,7 +22,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services
     .AddScoped<IApplicationRepository, ApplicationRepository>()
     .AddScoped<IImageService, ImageService>()
-    .AddScoped<ICarService, CarService>();
+    .AddScoped<ICarService, CarService>()
+    .AddScoped<IFeatureService, FeatureService>();
 
 builder.Services.AddControllersWithViews();
 
