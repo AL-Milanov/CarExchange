@@ -43,9 +43,9 @@ namespace CarExchange.Core.Models
         [Required]
         public bool IsBooked { get; set; } = false;
 
-        public ICollection<SelectListItem>? Features { get; set; }
+        public List<SelectListItem>? Features { get; set; }
 
-        public ICollection<byte[]> Images { get; set; }
+        public List<byte[]> Images { get; set; }
 
         public AddCar()
         {

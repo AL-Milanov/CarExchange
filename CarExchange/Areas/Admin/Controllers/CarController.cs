@@ -18,9 +18,9 @@ namespace CarExchange.Areas.Admin.Controllers
             _featureService = featureService;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var model = FillInfo();
+            var model = await FillInfo();
 
             return View(model);
         }

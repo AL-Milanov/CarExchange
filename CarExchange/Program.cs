@@ -1,3 +1,4 @@
+using CarExchange.Common;
 using CarExchange.Core.Services;
 using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data;
@@ -10,14 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Mongo"));
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("ConnectionStrings:Mongo"));
 
 builder.Services.AddDbContexts(builder.Configuration);
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services
     .AddScoped<IApplicationRepository, ApplicationRepository>()
@@ -26,6 +29,15 @@ builder.Services
     .AddScoped<IFeatureService, FeatureService>();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<IdentityOptions>(opt =>
+{
+    opt.Password.RequiredLength = 4;
+    opt.Password.RequireUppercase = false;
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireLowercase = false;
+});
 
 var app = builder.Build();
 
@@ -48,6 +60,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.MapControllerRoute(
+    name: Constraints.Role.Admin,
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

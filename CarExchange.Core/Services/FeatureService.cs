@@ -20,8 +20,8 @@ namespace CarExchange.Core.Services
             var features = await _repo.GetAll<Feature>()
                 .Select(x => new SelectListItem
                 {
-                    Text = x.Name,
-                    Value = x.Id
+                    Value = x.Id,
+                    Text = x.Name
                 })
                 .ToListAsync();
 
