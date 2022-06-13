@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarExchange", "CarExchange\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarExchange.Infrastructure", "CarExchange.Infrastructure\CarExchange.Infrastructure.csproj", "{C3ADC550-9538-4EF2-BDEB-E0F014D6684C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarExchange.Core", "CarExchange.Core\CarExchange.Core.csproj", "{1F2DDC59-32FA-403F-85E0-6D6743D66AE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarExchange.Core", "CarExchange.Core\CarExchange.Core.csproj", "{1F2DDC59-32FA-403F-85E0-6D6743D66AE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

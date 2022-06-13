@@ -1,4 +1,5 @@
 ﻿using CarExchange.Infrastructure.Data.Models;
+using CarExchange.Infrastructure.InitialSeed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,8 @@ namespace CarExchange.Infrastructure.Data
                 .HasKey(x => x.UserId);
 
             builder.UseSerialColumns();
+
+            builder.ApplyConfiguration(new InitialDbConfiguration<Feature>(@"Seed/car-features.json"));
         }
 
     }
