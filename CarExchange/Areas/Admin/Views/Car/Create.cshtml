@@ -4,5 +4,65 @@
 <h1>
     Add new car to shop
 </h1>
+<hr />
 
-<br />
+<form asp-controller="Car" asp-action="Create" method="post">
+    <div>
+        <label for="@Model.BodyTypes">Body type:</label>
+        <select id="bodyTypes" name="@Model.BodyTypes">
+            @foreach (var bodyType in Model.BodyTypes)
+            {
+                <option value="@bodyType">@bodyType</option>
+            }
+        </select>
+
+        <br />
+        <label for="@Model.Colors">Color:</label>
+        <select id="color" name=@Model.Colors>
+            @foreach (var color in Model.Colors)
+            {
+                <option value="@color">@color</option>
+            }
+        </select>
+
+        <br />
+        <label for="@Model.FuelType">Fuel:</label>
+        <select id="fuel" name=@Model.FuelType>
+            @foreach (var fuel in Model.FuelType)
+            {
+                <option value="@fuel">@fuel</option>
+            }
+        </select>
+
+        <br />
+        <label for="@Model.Manufacturers">Manufacturer:</label>
+        <select id="manufacturer" name=@Model.Manufacturers>
+            @foreach (var manufacturer in Model.Manufacturers)
+            {
+                <option value="@manufacturer">@manufacturer</option>
+            }
+        </select>
+
+        <br />
+        <label for="@Model.Transmissions">Transmission:</label>
+        <select id="transmission" name=@Model.Transmissions>
+            @foreach (var transmission in Model.Transmissions)
+            {
+                <option value="@transmission">@transmission</option>
+            }
+        </select>
+
+        <br />
+        <label for=@Model.Features>Features:</label>
+        <fieldset>
+            @foreach(var feature in Model.Features)
+            {
+                <label for="@Model.Features">@feature.Text</label>
+                <input type="checkbox"/>
+            }
+        </fieldset>
+
+        <hr />
+        <input type="submit" class="btn-primary" value="Add" />
+    </div>
+</form>

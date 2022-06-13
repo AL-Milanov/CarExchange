@@ -1,0 +1,66 @@
+[
+  {
+    "id": "ec5eba28-d1c2-481d-aad9-f70cfaab95dd",
+    "name": "Leather seats"
+  },
+  {
+    "id": "b8ce9dea-4e68-4492-989c-77b815503eb1",
+    "name": "Bluetooth"
+  },
+  {
+    "id": "6e040908-5d77-4462-a3d5-f90b4d9b7849",
+    "name": "Parking Sensors"
+  },
+  {
+    "id": "5fbdc6e8-20ef-49fd-a7f2-dadc53def7a8",
+    "name": "LED lights"
+  },
+  {
+    "id": "efe890d8-e7a4-41a3-a45a-adf3ee0b18df",
+    "name": "Airbags"
+  },
+  {
+    "id": "afb9b2f6-ecda-4a62-b173-c013a0be9b89",
+    "name": "Side Airbags"
+  },
+  {
+    "id": "ee88e9b0-b98a-4ca0-a520-789cab1b3f52",
+    "name": "Navigation system"
+  },
+  {
+    "id": "cd2507c1-766b-4852-bda9-ebf56a587167",
+    "name": "USB"
+  },
+  {
+    "id": "83ea7719-a6f6-42d6-bf56-823a64a3a1a4",
+    "name": "Lane Assist"
+  },
+  {
+    "id": "ae0ee0f4-b230-4cd7-93d8-3e7e75c8e8f4",
+    "name": "Electric Windows"
+  },
+  {
+    "id": "80af5358-9fd3-477f-9618-e7e713618489",
+    "name": "Front Fog Lights"
+  },
+  {
+    "id": "8a1a7eac-60e6-48a2-889f-8e6387a5bbfc",
+    "name": "Leather Saloon"
+  },
+  {
+    "id": "1a28eea6-8159-42fa-9389-588e32dd94e7",
+    "name": "Seat - Height Adjustment"
+  },
+  {
+    "id": "d6f58d6c-83f6-44d1-9b6a-205be04fb447",
+    "name": "Alarm"
+  },
+  {
+    "id": "d6f58d6c-83f6-k1d1-y56a-205be04fb447",
+    "name": "ABS"
+  },
+  {
+    "id": "c6a58d6s-38f6-44d1-9b6a-209be04fbi43",
+    "name": "Heater rear window"
+  }
+]
