@@ -5,16 +5,16 @@ namespace CarExchange.Areas.Admin.Models
     public class CreateCar
     {
 
-        public IEnumerable<string> BodyTypes { get; set; }
+        public string BodyType { get; set; }
 
-        public IEnumerable<string> Colors { get; set; }
+        public string Color { get; set; }
 
-        public IEnumerable<string> FuelType { get; set; }
+        public string FuelType { get; set; }
 
-        public IEnumerable<string> Manufacturers { get; set; }
+        public string Manufacturer { get; set; }
 
-        public IEnumerable<string> Transmissions { get; set; }
+        public string Transmission { get; set; }
 
-        public IEnumerable<SelectListItem> Features { get; set; }
+        public ICollection<SelectListItem> Features { get; set; }
     }
 }

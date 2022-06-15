@@ -1,5 +1,8 @@
 ﻿@using CarExchange.Areas.Admin.Models
-@model CreateCar
+@model CreateCar;
+@{
+    int i = 1;
+}
 
 <h1>
     Add new car to shop
@@ -8,57 +11,72 @@
 
 <form asp-controller="Car" asp-action="Create" method="post">
     <div>
-        <label for="@Model.BodyTypes">Body type:</label>
-        <select id="bodyTypes" name="@Model.BodyTypes">
-            @foreach (var bodyType in Model.BodyTypes)
+        <label>Body type:</label>
+        <select id="bodyTypes" name="BodyType">
+            @foreach (var bodyType in ViewBag.BodyTypes)
             {
                 <option value="@bodyType">@bodyType</option>
             }
         </select>
 
         <br />
-        <label for="@Model.Colors">Color:</label>
-        <select id="color" name=@Model.Colors>
-            @foreach (var color in Model.Colors)
+        <label>Color:</label>
+        <select id="color" name="Color">
+            @foreach (var color in ViewBag.Colors)
             {
                 <option value="@color">@color</option>
             }
         </select>
 
         <br />
-        <label for="@Model.FuelType">Fuel:</label>
-        <select id="fuel" name=@Model.FuelType>
-            @foreach (var fuel in Model.FuelType)
+        <label>Fuel:</label>
+        <select id="fuel" name="FuelType">
+            @foreach (var fuel in ViewBag.FuelTypes)
             {
                 <option value="@fuel">@fuel</option>
             }
         </select>
 
         <br />
-        <label for="@Model.Manufacturers">Manufacturer:</label>
-        <select id="manufacturer" name=@Model.Manufacturers>
-            @foreach (var manufacturer in Model.Manufacturers)
+        <label>Manufacturer:</label>
+        <select id="manufacturer" name="Manufacturer">
+            @foreach (var manufacturer in ViewBag.Manufacturers)
             {
                 <option value="@manufacturer">@manufacturer</option>
             }
         </select>
 
         <br />
-        <label for="@Model.Transmissions">Transmission:</label>
-        <select id="transmission" name=@Model.Transmissions>
-            @foreach (var transmission in Model.Transmissions)
+        <label>Transmission:</label>
+        <select id="transmission" name="Transmission">
+            @foreach (var transmission in ViewBag.Transmissions)
             {
                 <option value="@transmission">@transmission</option>
             }
         </select>
 
         <br />
-        <label for=@Model.Features>Features:</label>
-        <fieldset>
-            @foreach(var feature in Model.Features)
+        <label>Features:</label>
+        <fieldset id="features" name="Features">
+            @foreach (var feature in (List<SelectListItem>)ViewBag.Features)
             {
-                <label for="@Model.Features">@feature.Text</label>
-                <input type="checkbox"/>
+                <input id="@feature.Value" 
+                type="checkbox" 
+                name="Features" 
+                value="@feature.Value" 
+                checked="@feature.Selected"/>
+                @*@Html.CheckBoxFor(m => feature.Selected)
+                @feature.Text
+                @Html.HiddenFor(m => m.Features)
+                @Html.HiddenFor(m => feature.Text)*@
+                //<input type="checkbox" name="features" /> @feature.Text
+                {
+                    i++;
+                }
+                @if (i % 4 == 0)
+                {
+                    <br />
+                }
             }
         </fieldset>
 

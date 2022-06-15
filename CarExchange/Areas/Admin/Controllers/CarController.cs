@@ -1,6 +1,8 @@
 ﻿using CarExchange.Areas.Admin.Models;
+using CarExchange.Core.Models;
 using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarExchange.Areas.Admin.Controllers
@@ -20,32 +22,30 @@ namespace CarExchange.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var model = await FillInfo();
+            
+            ViewBag.BodyTypes = Enum.GetNames(typeof(BodyType));
+            ViewBag.Colors = Enum.GetNames(typeof(Color));
+            ViewBag.FuelTypes = Enum.GetNames(typeof(Fuel));
+            ViewBag.Manufacturers = Enum.GetNames(typeof(Manufacturer));
+            ViewBag.Transmissions = Enum.GetNames(typeof(Transmission));
 
-            return View(model);
+            ViewBag.Features = await _featureService.GetAll();
+
+            return View();
         }
 
-        private async Task<CreateCar> FillInfo()
+        [HttpPost]
+        public async Task<IActionResult> Create(
+            CreateCar model)
         {
-            var createModel = new CreateCar();
+            
+            var x = model.Features;
 
-            var bodyTypes = Enum.GetNames(typeof(BodyType));
-            var colorTypes = Enum.GetNames(typeof(Color));
-            var fuelTypes = Enum.GetNames(typeof(Fuel));
-            var manufacturerTypes = Enum.GetNames(typeof(Manufacturer));
-            var transmissionTypes = Enum.GetNames(typeof(Transmission));
+            await _carService.Add(null);
 
-            createModel.BodyTypes = bodyTypes;
-            createModel.Colors = colorTypes;
-            createModel.FuelType = fuelTypes;
-            createModel.Manufacturers = manufacturerTypes;
-            createModel.Transmissions = transmissionTypes;
 
-            var features = await _featureService.GetAll();
-
-            createModel.Features = features;
-
-            return createModel;
+            return RedirectToAction("/");
         }
+
     }
 }
