@@ -56,40 +56,6 @@
         </select>
         <br />
 
-        <dl>
-            <dt>
-                <label for="Image">Images</label>
-            </dt>
-            <dd>
-                <input id="Image" type="file"
-                       name="Image" />
-            </dd>
-        </dl>
-@*
-        <label>Features:</label>
-        <fieldset id="features" name="Features">
-            @foreach (var feature in (List<SelectListItem>)ViewBag.Features)
-            {
-                <input id="@feature.Value"
-                   type="checkbox"
-                   name="Features"
-                   value="@feature.Value"
-                   checked="@feature.Selected" />
-                @Html.CheckBoxFor(m => feature.Selected)
-                    @feature.Text
-                    @Html.HiddenFor(m => m.Features)
-                    @Html.HiddenFor(m => feature.Text)
-                <input type="checkbox" name="features" /> @feature.Text
-                {
-                    i++;
-                }
-                @if (i % 4 == 0)
-                {
-                    <br />
-                }
-            }
-        </fieldset>*@
-
         <hr />
         <input type="submit" class="btn-primary" value="Next" />
     </div>

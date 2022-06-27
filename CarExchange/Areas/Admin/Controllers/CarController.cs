@@ -67,12 +67,8 @@ namespace CarExchange.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddImages(CreateCar model, List<IFormFile> formFile)
+        public async Task<IActionResult> AddImages(CreateCar model, IFormFile formFile)
         {
-            foreach (var image in formFile)
-            {
-
-            }
 
             return RedirectToAction();
         }
