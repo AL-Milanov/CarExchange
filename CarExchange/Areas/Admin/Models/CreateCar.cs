@@ -4,6 +4,17 @@ namespace CarExchange.Areas.Admin.Models
 {
     public class CreateCar
     {
+        public string? Model { get; set; }
+
+        public int Mileage { get; set; }
+
+        public byte Seats { get; set; }
+
+        public byte Gears { get; set; }
+
+        public decimal Price { get; set; }
+
+        public string? Description { get; set; }
 
         public string BodyType { get; set; }
 
@@ -17,6 +28,6 @@ namespace CarExchange.Areas.Admin.Models
 
         public byte[] Image { get; set; }
 
-        public ICollection<SelectListItem> Features { get; set; }
+        public ICollection<string> Features { get; set; }
     }
 }
