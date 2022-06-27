@@ -22,7 +22,7 @@ namespace CarExchange.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create()
         {
-            
+
             ViewBag.BodyTypes = Enum.GetNames(typeof(BodyType));
             ViewBag.Colors = Enum.GetNames(typeof(Color));
             ViewBag.FuelTypes = Enum.GetNames(typeof(Fuel));
@@ -35,17 +35,46 @@ namespace CarExchange.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(
-            CreateCar model)
+        public IActionResult Create(CreateCar model)
         {
-            
-            var x = model.Features;
-
-            await _carService.Add(null);
-
-
-            return RedirectToAction("/");
+            return RedirectToAction(nameof(AddFeatures), model);
         }
 
+        public async Task<IActionResult> AddFeatures(CreateCar model)
+        {
+            ViewBag.Car = model;
+
+            ViewBag.Features = await _featureService.GetAll();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AddFeatures(CreateCar model, string[] features)
+        {
+            foreach (var feature in features)
+            {
+                model.Features.Add(feature);
+            }
+
+            return RedirectToAction(nameof(AddImages), model);
+        }
+
+        public IActionResult AddImages(CreateCar model)
+        {
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddImages(CreateCar model, List<IFormFile> formFile)
+        {
+            foreach (var image in formFile)
+            {
+
+            }
+
+            return RedirectToAction();
+        }
     }
 }

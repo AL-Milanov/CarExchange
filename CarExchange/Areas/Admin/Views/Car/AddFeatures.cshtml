@@ -1,0 +1,33 @@
+﻿@{
+    int i = 1;
+}
+
+<h1>Add Features:</h1>
+<hr />
+
+<div>
+    <form asp-controller="Car" asp-action="AddFeature" method="post">
+        <label>Features:</label>
+        <fieldset id="features" name="Features">
+            @foreach (var feature in (List<SelectListItem>)ViewBag.Features)
+            {
+                <input id="@feature.Value"
+                   type="checkbox"
+                   name="Features"
+                   value="@feature.Value"
+                   checked="@feature.Selected" />
+
+                <text>@feature.Text |</text>
+                {
+                    i++;
+                }
+                @if (i % 4 == 0)
+                {
+                    <br />
+                }
+            }
+        </fieldset>
+
+        <input type="submit" value="Next" />
+    </form>
+</div>
