@@ -15,6 +15,8 @@ namespace CarExchange.Areas.Admin.Models
 
         public string Transmission { get; set; }
 
+        public byte[] Image { get; set; }
+
         public ICollection<SelectListItem> Features { get; set; }
     }
 }
