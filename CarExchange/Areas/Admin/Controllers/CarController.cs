@@ -35,9 +35,10 @@ namespace CarExchange.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateCar model)
+        public IActionResult Create(CreateCar car)
         {
-            return RedirectToAction(nameof(AddFeatures), model);
+
+            return RedirectToAction(nameof(AddFeatures), car);
         }
 
         public async Task<IActionResult> AddFeatures(CreateCar model)

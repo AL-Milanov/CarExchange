@@ -15,7 +15,7 @@ builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Co
 
 builder.Services.AddDbContexts(builder.Configuration);
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
@@ -29,6 +29,8 @@ builder.Services
     .AddScoped<IFeatureService, FeatureService>();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddMvc();
 
 builder.Services.Configure<IdentityOptions>(opt =>
 {
