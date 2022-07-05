@@ -37,6 +37,10 @@ namespace CarExchange.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(CreateCar car)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Create));
+            }
 
             return RedirectToAction(nameof(AddFeatures), car);
         }
