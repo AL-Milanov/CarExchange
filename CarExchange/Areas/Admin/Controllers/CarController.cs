@@ -1,8 +1,6 @@
-﻿using CarExchange.Areas.Admin.Models;
-using CarExchange.Core.Models;
+﻿using CarExchange.Core.Models;
 using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data.Enums;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarExchange.Areas.Admin.Controllers
