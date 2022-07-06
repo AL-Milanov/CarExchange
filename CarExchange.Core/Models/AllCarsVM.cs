@@ -10,6 +10,6 @@
 
         public int Mileage { get; set; }
 
-        public byte[]? Picture { get; set; }
+        public string Picture { get; set; }
     }
 }

@@ -20,18 +20,22 @@ namespace CarExchange.Core.Services
                 .GetCollection<Image>(options.Value.CollectionName);
         }
 
-        public async Task<string> Create(ImageVM model)
+        public async Task<string> Create(ICollection<string> images)
         {
-            var image = new Image
+
+            var model = new Image();
+
+            foreach (var image in images)
             {
-                Images = model.Images,
-            };
 
-            await _images.InsertOneAsync(image);
+                model.Images.Add(image);
+            }
 
-            return image.Id;
+            await _images.InsertOneAsync(model);
+
+            return model.Id;
         }
-        
+
         public async Task<ImageVM> Get(string id)
         {
             var image = await _images.Find(i => i.Id == id)
@@ -40,7 +44,7 @@ namespace CarExchange.Core.Services
             return new ImageVM { Images = image.Images };
         }
 
-        public async Task<byte[]> GetFirst(string id)
+        public async Task<string> GetFirst(string id)
         {
             var image = await _images.Find(i => i.Id == id)
                 .FirstOrDefaultAsync();
@@ -52,5 +56,6 @@ namespace CarExchange.Core.Services
         {
             await _images.DeleteOneAsync(i => i.Id == id);
         }
+
     }
 }

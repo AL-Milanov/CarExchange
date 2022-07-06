@@ -34,20 +34,20 @@ namespace CarExchange.Core.Services
 
             var transmissionExists = Enum.TryParse(model.Transmission, out Transmission transmission);
 
-            var fuelExists = Enum.TryParse(model.Fuel, out Fuel fuel);
+            var fuelExists = Enum.TryParse(model.FuelType, out Fuel fuel);
 
-            var bodyTypeExists = Enum.TryParse(model.Bodystyle, out BodyType bodyStyle);
+            var bodyTypeExists = Enum.TryParse(model.BodyType, out BodyType bodyStyle);
 
             if (!manufacturerExists || !colorExists || !transmissionExists || !fuelExists || !bodyTypeExists)
             {
                 throw new ArgumentException("Problem occured, try again later.");
             }
 
-            var imageId = string.Empty;
+            var imagesId = string.Empty;
 
             try
             {
-                imageId = await _imageService.Create(new ImageVM { Images = model.Images });
+                imagesId = await _imageService.Create(model.Images);
 
             }
             catch (Exception)
@@ -55,10 +55,10 @@ namespace CarExchange.Core.Services
                 throw new OperationCanceledException(errorMessage);
             }
 
-            var featuresNames = model?.Features?.Select(x => x.Text).ToList();
+            var featuresIds = model?.Features?.Select(x => x).ToList();
 
             var features = await _repo.GetAll<Feature>()
-                .Where(f => featuresNames.Contains(f.Name))
+                .Where(f => featuresIds.Contains(f.Id))
                 .ToListAsync();
 
             var car = new Car
@@ -71,7 +71,7 @@ namespace CarExchange.Core.Services
                 Fuel = fuel,
                 Gears = model.Gears,
                 HorsePower = model.HorsePower,
-                ImageId = imageId,
+                ImageId = imagesId,
                 Manufacturer = manufacturer,
                 Mileage = model.Mileage,
                 Model = model.Model,

@@ -19,6 +19,12 @@ namespace CarExchange.Core.Models
         [Range(1, 6)]
         public byte Gears { get; set; }
 
+        [Range(1, short.MaxValue)]
+        public short HorsePower { get; set; }
+
+        [StringLength(20, MinimumLength = 2)]
+        public string Engine { get; set; }
+
         [Required]
         [Range(1, double.MaxValue)]
         public decimal Price { get; set; }

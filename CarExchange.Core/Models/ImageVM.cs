@@ -2,11 +2,11 @@
 {
     public class ImageVM
     {
-        public List<byte[]> Images { get; set; }
+        public List<string> Images { get; set; }
 
         public ImageVM()
         {
-            Images = new List<byte[]>();
+            Images = new List<string>();
         }
     }
 }

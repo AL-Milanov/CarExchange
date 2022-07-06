@@ -8,11 +8,11 @@ namespace CarExchange.Infrastructure.Data.Models
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id = Guid.NewGuid().ToString();
 
-        public List<byte[]>? Images { get; set; }
+        public List<string>? Images { get; set; }
 
         public Image()
         {
-            Images = new List<byte[]>();
+            Images = new List<string>();
         }
     }
 }
