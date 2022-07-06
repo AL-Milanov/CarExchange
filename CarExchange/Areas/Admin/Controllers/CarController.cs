@@ -37,10 +37,10 @@ namespace CarExchange.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(CreateCar car)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Create));
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return RedirectToAction(nameof(Create));
+            //}
 
             return RedirectToAction(nameof(AddFeatures), car);
         }
@@ -72,10 +72,32 @@ namespace CarExchange.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddImages(CreateCar model, IFormFile formFile)
+        public async Task<IActionResult> AddImages(CreateCar model, ICollection<IFormFile> formFiles)
         {
 
-            return RedirectToAction();
+            foreach (var image in formFiles)
+            {
+                if (image.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await image.CopyToAsync(ms);
+                        var filebytes = ms.ToArray();
+                        string imageBytes = Convert.ToBase64String(filebytes);
+
+                        model.Images.Add(imageBytes);
+                    }
+                }
+            }
+
+            await SaveOffer(model);
+
+            return RedirectToAction(nameof(Index), "Home");
+        }
+
+        private async Task SaveOffer(CreateCar model)
+        {
+            await _carService.Add(model);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace CarExchange.Core.Services
             _imageService = imageService;
         }
 
-        public async Task Add(AddCar model)
+        public async Task Add(CreateCar model)
         {
             var manufacturerExists = Enum.TryParse(model.Manufacturer, out Manufacturer manufacturer);
 

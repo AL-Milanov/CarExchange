@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarExchange.Areas.Admin.Models
+namespace CarExchange.Core.Models
 {
     public class CreateCar
     {
@@ -41,8 +41,14 @@ namespace CarExchange.Areas.Admin.Models
         [Required]
         public string Transmission { get; set; }
 
-        public byte[] Image { get; set; }
+        public ICollection<string> Images { get; set; }
 
         public ICollection<string> Features { get; set; }
+
+        public CreateCar()
+        {
+            Features = new HashSet<string>();
+            Images = new HashSet<string>();
+        }
     }
 }
