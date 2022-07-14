@@ -1,94 +1,104 @@
 ﻿@using CarExchange.Core.Models
-@{
-    @model CreateCar;
-    int i = 1;
-}
+
+@model CreateCar;
 
 <h1>
     Add new car to shop
 </h1>
 <hr />
 
-<form asp-controller="Car" asp-action="Create" method="post">
-    <div>
+<div>
 
-        <label>Manufacturer:</label>
-        <select id="manufacturer" name="Manufacturer">
-            @foreach (var manufacturer in ViewBag.Manufacturers)
-            {
-                <option value="@manufacturer">@manufacturer</option>
-            }
-        </select>
-        <br />
+    <form asp-controller="Car" asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
 
-        <label>Model:</label>
-        <input type="text" id="model" name="Model">
-        <span asp-validation-for="Model" class="text-danger"></span>
+            <label>Manufacturer:</label>
+            <select id="manufacturer" asp-for="Manufacturer">
+                @foreach (var manufacturer in ViewBag.Manufacturers)
+                {
+                    <option name="Manufacturer" value="@manufacturer">@manufacturer</option>
+                }
+            </select>
+            <br />
 
-        <br />
+            <label>Model:</label>
+            <input type="text" id="model" asp-for="Model">
+            <span asp-validation-for="Model" class="text-danger"></span>
 
-        <label>Mileage:</label>
-        <input type="number" id="mileage" name="Mileage" />
-        <span asp-validation-for="Mileage" class="text-danger"></span>
-        <br />
+            <br />
 
-        <label>Seats:</label>
-        <input type="number" id="seats" name="Seats" />
-        <span asp-validation-for="Seats" class="text-danger"></span>
-        <br />
+            <label>Mileage:</label>
+            <input type="number" id="mileage" asp-for="Mileage" />
+            <span asp-validation-for="Mileage" class="text-danger"></span>
 
-        <label>Price:</label>
-        <input type="number" id="price" name="Price" /> €
-        <span asp-validation-for="Price" class="text-danger"></span>
-        <br />
+            <br />
 
-        <label>Body type:</label>
-        <select id="bodyTypes" name="BodyType">
-            @foreach (var bodyType in ViewBag.BodyTypes)
-            {
-                <option value="@bodyType">@bodyType</option>
-            }
-        </select>
+            <label>Seats:</label>
+            <input type="number" id="seats" asp-for="Seats" />
+            <span asp-validation-for="Seats" class="text-danger"></span>
 
-        <br />
-        <label>Color:</label>
-        <select id="color" name="Color">
-            @foreach (var color in ViewBag.Colors)
-            {
-                <option value="@color">@color</option>
-            }
-        </select>
+            <br />
 
-        <br />
-        <label>Fuel:</label>
-        <select id="fuel" name="FuelType">
-            @foreach (var fuel in ViewBag.FuelTypes)
-            {
-                <option value="@fuel">@fuel</option>
-            }
-        </select>
+            <label>Price:</label>
+            <input type="number" id="price" asp-for="Price" /> €
+            <span asp-validation-for="Price" class="text-danger"></span>
 
-        <br />
+            <br />
 
-        <label>Transmission:</label>
-        <select id="transmission" name="Transmission">
-            @foreach (var transmission in ViewBag.Transmissions)
-            {
-                <option value="@transmission">@transmission</option>
-            }
-        </select>
-        <br />
+            <label>Body type:</label>
+            <select id="bodyTypes" asp-for="BodyType">
+                @foreach (var bodyType in ViewBag.BodyTypes)
+                {
+                    <option value="@bodyType">@bodyType</option>
+                }
+            </select>
 
-        <label>Gears:</label>
-        <input type="number" id="gear" name="Gears" />
-        <span asp-validation-for="Gears" class="text-danger"></span>
-        <br />
+            <br />
+            <label>Color:</label>
+            <select id="color" asp-for="Color">
+                @foreach (var color in ViewBag.Colors)
+                {
+                    <option value="@color">@color</option>
+                }
+            </select>
 
-        <label>Description:</label>
-        <textarea id="description" name="Description" rows="4" cols="50"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+            <br />
+            <label>Fuel:</label>
+            <select id="fuel" asp-for="FuelType">
+                @foreach (var fuel in ViewBag.FuelTypes)
+                {
+                    <option value="@fuel">@fuel</option>
+                }
+            </select>
 
-        <hr />
-        <input type="submit" class="btn-primary" value="Next" />
-    </div>
-</form>
+            <br />
+
+            <label>Transmission:</label>
+            <select id="transmission" asp-for="Transmission">
+                @foreach (var transmission in ViewBag.Transmissions)
+                {
+                    <option value="@transmission">@transmission</option>
+                }
+            </select>
+            <br />
+
+            <label>Gears:</label>
+            <input type="number" id="gears" asp-for="Gears" />
+            <span asp-validation-for="Gears" class="text-danger"></span>
+
+            <br />
+
+            <label>Description:</label>
+            <textarea id="description" asp-for="Description" rows="4" cols="50"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+
+
+            <hr />
+            <div class="form-group">
+                <input type="submit" class="btn-primary" value="Next" />
+            </div>
+
+        </div>
+    </form>
+</div>

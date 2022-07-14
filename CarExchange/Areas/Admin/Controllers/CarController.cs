@@ -1,4 +1,5 @@
-﻿using CarExchange.Core.Models;
+﻿
+using CarExchange.Core.Models;
 using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -33,20 +34,18 @@ namespace CarExchange.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateCar car)
+        public IActionResult Create(CreateCar model)
         {
             //if (!ModelState.IsValid)
             //{
             //    return RedirectToAction(nameof(Create));
             //}
 
-            return RedirectToAction(nameof(AddFeatures), car);
+            return RedirectToAction(nameof(AddFeatures), model);
         }
 
         public async Task<IActionResult> AddFeatures(CreateCar model)
         {
-            ViewBag.Car = model;
-
             ViewBag.Features = await _featureService.GetAll();
 
             return View(model);
