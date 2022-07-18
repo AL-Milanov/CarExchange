@@ -6,7 +6,7 @@
 <hr />
 
 <div>
-    <form asp-controller="Car" asp-action="AddFeature" method="post">
+    <form asp-controller="Car" asp-action="AddFeatures" method="post">
         <label>Features:</label>
         <fieldset id="features" name="Features">
             @foreach (var feature in (List<SelectListItem>)ViewBag.Features)
