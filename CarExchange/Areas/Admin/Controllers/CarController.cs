@@ -11,12 +11,16 @@ namespace CarExchange.Areas.Admin.Controllers
         private readonly ICarService _carService;
         private readonly IFeatureService _featureService;
 
+        private CreateCar createCar;
+
         public CarController(
             ICarService carService,
             IFeatureService featureService)
         {
             _carService = carService;
             _featureService = featureService;
+
+            createCar = new();
         }
 
         public async Task<IActionResult> Create()
@@ -34,42 +38,38 @@ namespace CarExchange.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateCar model)
+        public IActionResult Create(CreateCar car)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return RedirectToAction(nameof(Create));
-            //}
 
-            return RedirectToAction(nameof(AddFeatures), model);
+            return RedirectToAction(nameof(AddFeatures), car);
         }
 
-        public async Task<IActionResult> AddFeatures(CreateCar model)
+        public async Task<IActionResult> AddFeatures(CreateCar car)
         {
             ViewBag.Features = await _featureService.GetAll();
 
-            return View(model);
+            return View(nameof(AddFeatures), car);
         }
 
         [HttpPost]
-        public IActionResult AddFeatures(CreateCar model, string[] features)
+        public IActionResult AddFeatures(CreateCar car, string[] features)
         {
             foreach (var feature in features)
             {
-                model.Features.Add(feature);
+                car.Features.Add(feature);
             }
 
-            return RedirectToAction(nameof(AddImages), model);
+            return RedirectToAction(nameof(AddImages), car);
         }
 
-        public IActionResult AddImages(CreateCar model)
+        public IActionResult AddImages(CreateCar car)
         {
 
-            return View(model);
+            return View(car);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddImages(CreateCar model, ICollection<IFormFile> formFiles)
+        public async Task<IActionResult> AddImages(CreateCar car, ICollection<IFormFile> formFiles)
         {
 
             foreach (var image in formFiles)
@@ -82,12 +82,12 @@ namespace CarExchange.Areas.Admin.Controllers
                         var filebytes = ms.ToArray();
                         string imageBytes = Convert.ToBase64String(filebytes);
 
-                        model.Images.Add(imageBytes);
+                        car.Images.Add(imageBytes);
                     }
                 }
             }
 
-            await SaveOffer(model);
+            await SaveOffer(car);
 
             return RedirectToAction(nameof(Index), "Home");
         }

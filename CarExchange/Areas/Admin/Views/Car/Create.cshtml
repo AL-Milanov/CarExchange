@@ -1,6 +1,4 @@
-﻿@using CarExchange.Core.Models
-
-@model CreateCar;
+﻿@model CarExchange.Core.Models.CreateCar;
 
 <h1>
     Add new car to shop
@@ -9,22 +7,22 @@
 
 <div>
 
-    <form asp-controller="Car" asp-action="Create">
+    <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
 
-            <label>Manufacturer:</label>
-            <select id="manufacturer" asp-for="Manufacturer">
+            <label asp-for=Manufacturer></label>
+            <select id="manufacturer" asp-for=Manufacturer>
                 @foreach (var manufacturer in ViewBag.Manufacturers)
                 {
-                    <option name="Manufacturer" value="@manufacturer">@manufacturer</option>
+                    <option value="@manufacturer">@manufacturer</option>
                 }
             </select>
             <br />
 
-            <label>Model:</label>
-            <input type="text" id="model" asp-for="Model">
-            <span asp-validation-for="Model" class="text-danger"></span>
+            <label asp-for=Model>Model:</label>
+            <input type="text" id="model" asp-for=Model>
+            <span asp-validation-for=Model class="text-danger"></span>
 
             <br />
 
@@ -37,6 +35,18 @@
             <label>Seats:</label>
             <input type="number" id="seats" asp-for="Seats" />
             <span asp-validation-for="Seats" class="text-danger"></span>
+
+            <br />
+
+            <label>Horse Power:</label>
+            <input type="number" id="horsepower" asp-for=HorsePower />
+            <span asp-validation-for="HorsePower" class="text-danger"></span>
+
+            <br />
+
+            <label>Engine:</label>
+            <input type="text" id="engine" asp-for="Engine" />
+            <span asp-validation-for="Engine" class="text-danger"></span>
 
             <br />
 
@@ -93,8 +103,8 @@
             <textarea id="description" asp-for="Description" rows="4" cols="50"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
 
-
             <hr />
+
             <div class="form-group">
                 <input type="submit" class="btn-primary" value="Next" />
             </div>
