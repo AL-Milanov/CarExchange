@@ -52,13 +52,8 @@ namespace CarExchange.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddFeatures(CreateCar car, string[] features)
+        public IActionResult AddFeaturesPOST(CreateCar car)
         {
-            foreach (var feature in features)
-            {
-                car.Features.Add(feature);
-            }
-
             return RedirectToAction(nameof(AddImages), car);
         }
 
