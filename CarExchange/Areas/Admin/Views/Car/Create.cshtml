@@ -103,6 +103,13 @@
             <textarea id="description" asp-for="Description" rows="4" cols="50"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
 
+            <br />
+
+            <label>Features:</label>
+            <select asp-for="Features" asp-items="@ViewBag.Features" class="form-control">
+            </select>
+
+            <br />
             <hr />
 
             <div class="form-group">

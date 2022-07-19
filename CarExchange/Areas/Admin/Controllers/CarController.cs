@@ -1,5 +1,4 @@
-﻿
-using CarExchange.Core.Models;
+﻿using CarExchange.Core.Models;
 using CarExchange.Core.Services.Contracts;
 using CarExchange.Infrastructure.Data.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -40,33 +39,25 @@ namespace CarExchange.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(CreateCar car)
         {
+            var featuresString = string.Join(",", car.Features);
 
-            return RedirectToAction(nameof(AddFeatures), car);
-        }
+            car.Features = new List<string>()
+            {
+                featuresString
+            };
 
-        public async Task<IActionResult> AddFeatures(CreateCar car)
-        {
-            ViewBag.Features = await _featureService.GetAll();
-
-            return View(nameof(AddFeatures), car);
-        }
-
-        [HttpPost]
-        public IActionResult AddFeaturesPOST(CreateCar car)
-        {
             return RedirectToAction(nameof(AddImages), car);
         }
 
         public IActionResult AddImages(CreateCar car)
         {
-
+            
             return View(car);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddImages(CreateCar car, ICollection<IFormFile> formFiles)
         {
-
             foreach (var image in formFiles)
             {
                 if (image.Length > 0)
@@ -81,6 +72,10 @@ namespace CarExchange.Areas.Admin.Controllers
                     }
                 }
             }
+
+            var features = car.Features[0].Split(",").ToList();
+
+            car.Features = features;
 
             await SaveOffer(car);
 

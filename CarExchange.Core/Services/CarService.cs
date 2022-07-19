@@ -26,17 +26,17 @@ namespace CarExchange.Core.Services
             _imageService = imageService;
         }
 
-        public async Task Add(CreateCar model)
+        public async Task Add(CreateCar createCar)
         {
-            var manufacturerExists = Enum.TryParse(model.Manufacturer, out Manufacturer manufacturer);
+            var manufacturerExists = Enum.TryParse(createCar.Manufacturer, out Manufacturer manufacturer);
 
-            var colorExists = Enum.TryParse(model.Color, out Color color);
+            var colorExists = Enum.TryParse(createCar.Color, out Color color);
 
-            var transmissionExists = Enum.TryParse(model.Transmission, out Transmission transmission);
+            var transmissionExists = Enum.TryParse(createCar.Transmission, out Transmission transmission);
 
-            var fuelExists = Enum.TryParse(model.FuelType, out Fuel fuel);
+            var fuelExists = Enum.TryParse(createCar.FuelType, out Fuel fuel);
 
-            var bodyTypeExists = Enum.TryParse(model.BodyType, out BodyType bodyStyle);
+            var bodyTypeExists = Enum.TryParse(createCar.BodyType, out BodyType bodyStyle);
 
             if (!manufacturerExists || !colorExists || !transmissionExists || !fuelExists || !bodyTypeExists)
             {
@@ -47,7 +47,7 @@ namespace CarExchange.Core.Services
 
             try
             {
-                imagesId = await _imageService.Create(model.Images);
+                imagesId = await _imageService.Create(createCar.Images);
 
             }
             catch (Exception)
@@ -55,7 +55,7 @@ namespace CarExchange.Core.Services
                 throw new OperationCanceledException(errorMessage);
             }
 
-            var featuresIds = model?.Features?.Select(x => x).ToList();
+            var featuresIds = createCar?.Features?.Select(x => x).ToList();
 
             var features = await _repo.GetAll<Feature>()
                 .Where(f => featuresIds.Contains(f.Id))
@@ -66,17 +66,17 @@ namespace CarExchange.Core.Services
                 Bodystyle = bodyStyle,
                 Color = color,
                 Features = features,
-                Description = model?.Description,
-                Engine = model?.Engine,
+                Description = createCar?.Description,
+                Engine = createCar?.Engine,
                 Fuel = fuel,
-                Gears = model.Gears,
-                HorsePower = model.HorsePower,
+                Gears = createCar.Gears,
+                HorsePower = createCar.HorsePower,
                 ImageId = imagesId,
                 Manufacturer = manufacturer,
-                Mileage = model.Mileage,
-                Model = model.Model,
-                Seats = model.Seats,
-                Price = model.Price,
+                Mileage = createCar.Mileage,
+                Model = createCar.Model,
+                Seats = createCar.Seats,
+                Price = createCar.Price,
                 Transmission = transmission
             };
 

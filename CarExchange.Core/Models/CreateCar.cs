@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarExchange.Core.Models
 {
@@ -49,12 +51,12 @@ namespace CarExchange.Core.Models
 
         public ICollection<string> Images { get; set; }
 
-        public ICollection<string> Features { get; set; }
+        public List<string> Features { get; set; }
 
         public CreateCar()
         {
-            Features = new HashSet<string>();
             Images = new HashSet<string>();
+            Features = new List<string>();
         }
     }
 }
