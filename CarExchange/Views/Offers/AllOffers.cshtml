@@ -1,0 +1,20 @@
+﻿@model CarExchange.Core.Models.CarResponse
+
+@{
+    ViewData["Title"] = "AllOffers";
+}
+
+<h1>AllOffers</h1>
+<div class="container">
+
+    @foreach (var item in Model.Cars)
+    {
+        <div class="item-list" style="border-style:solid">
+            <img src="data:image/jpeg;base64,@item.Picture" alt="Car image">
+            <div>
+                <h3>@item.Price</h3>
+            </div>
+        </div>
+    }
+
+</div>

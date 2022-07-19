@@ -126,7 +126,7 @@ namespace CarExchange.Core.Services
 
             foreach (var car in cars)
             {
-                var image = await _imageService.GetFirst(car.Id);
+                var image = await _imageService.GetFirst(car.ImageId);
 
                 carsVM.Add(new AllCarsVM
                 {
