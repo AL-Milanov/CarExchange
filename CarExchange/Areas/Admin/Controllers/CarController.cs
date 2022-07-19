@@ -10,8 +10,6 @@ namespace CarExchange.Areas.Admin.Controllers
         private readonly ICarService _carService;
         private readonly IFeatureService _featureService;
 
-        private CreateCar createCar;
-
         public CarController(
             ICarService carService,
             IFeatureService featureService)
@@ -19,7 +17,6 @@ namespace CarExchange.Areas.Admin.Controllers
             _carService = carService;
             _featureService = featureService;
 
-            createCar = new();
         }
 
         public async Task<IActionResult> Create()
@@ -79,7 +76,7 @@ namespace CarExchange.Areas.Admin.Controllers
 
             await SaveOffer(car);
 
-            return RedirectToAction(nameof(Index), "Home");
+            return RedirectToAction("Home");
         }
 
         private async Task SaveOffer(CreateCar model)
