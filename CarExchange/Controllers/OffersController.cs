@@ -17,9 +17,9 @@ namespace CarExchange.Controllers
 
 
 
-        public async Task<IActionResult> AllOffers()
+        public async Task<IActionResult> AllOffers(int page = 1)
         {
-            var offers = await _carService.GetAll(1);
+            var offers = await _carService.GetAll(page);
 
             return View(offers);
         }
