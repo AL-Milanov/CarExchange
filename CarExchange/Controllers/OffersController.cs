@@ -15,13 +15,18 @@ namespace CarExchange.Controllers
             _featureService = featureService;
         }
 
-
-
         public async Task<IActionResult> AllOffers(int page = 1)
         {
             var offers = await _carService.GetAll(page);
 
             return View(offers);
+        }
+
+        public async Task<IActionResult> Product(string id)
+        {
+            var car = await _carService.GetById(id);
+
+            return View();
         }
     }
 }

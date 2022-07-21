@@ -184,5 +184,37 @@ namespace CarExchange.Core.Services
             }
         }
 
+        public async Task<CarVM> GetById(string id)
+        {
+            var car = await _repo.GetAll<Car>()
+                .Include(c => c.Features)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            ImageVM? images = await _imageService.Get(car.ImageId);
+
+            var carVM = new CarVM()
+            {
+                Bodystyle = car.Bodystyle.ToString(),
+                Color = car.Color.ToString(),
+                Description = car.Description,
+                Engine = car.Engine,
+                Fuel = car.Fuel.ToString(),
+                Gears = car.Gears,
+                HorsePower = car.HorsePower,
+                Images = images.Images,
+                Manufacturer = car.Manufacturer.ToString(),
+                Mileage = car.Mileage,
+                Model = car.Model,
+                Price = car.Price,
+                Seats = car.Seats,
+                Transmission = car.Transmission.ToString(),
+                Features = car.Features
+                    .Select(f => f.Name)
+                    .ToList()
+            };
+
+
+            return carVM;
+        }
     }
 }
