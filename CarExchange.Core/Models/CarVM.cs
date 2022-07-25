@@ -30,6 +30,6 @@
 
         public ICollection<string>? Features { get; set; }
 
-        public ICollection<string> Images { get; set; }
+        public List<string> Images { get; set; }
     }
 }

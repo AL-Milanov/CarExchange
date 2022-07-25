@@ -26,7 +26,7 @@ namespace CarExchange.Controllers
         {
             var car = await _carService.GetById(id);
 
-            return View();
+            return View(car);
         }
     }
 }
